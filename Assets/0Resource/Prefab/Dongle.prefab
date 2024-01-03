@@ -161,4 +161,6 @@ MonoBehaviour:
   Level: 0
   IsDrag: 0
   IsMerge: 0
+  isTouchSound: 0
   Effect: {fileID: 0}
+  Rigid: {fileID: 0}
