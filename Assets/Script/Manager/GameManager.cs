@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver;
 
     [Range(1, 30)]public int PoolSize;
-    public int PoolCursor;
+    public int PoolCount;
     public List<Dongle> DonglePool;
     public List<ParticleSystem> EffectPool;
 
@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     {
         DonglePool = new List<Dongle>();
         EffectPool = new List<ParticleSystem>();
+
         for(int i =0; i<PoolSize; i++)
         {
             CreateDongle();
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(DongleGameOver());
     }
 
+    /** 동글 생성 */
     private Dongle CreateDongle()
     {
         // 이펙트 생성
@@ -72,8 +74,10 @@ public class GameManager : MonoBehaviour
         GameObject DongleObj = Instantiate(DonglePrefab, DongleGroupRoot);
         DongleObj.name = "Dongle" + DonglePool.Count;
         Dongle DongleComponent = DongleObj.GetComponent<Dongle>();
+
         DongleComponent.oGameManager = this;
         DongleComponent.Effect = EffectComponent;
+
         DonglePool.Add(DongleComponent);
 
         return DongleComponent;
@@ -82,12 +86,14 @@ public class GameManager : MonoBehaviour
     /** 동글을 생성한다 */
     private Dongle GetDongle()
     {
+        // 풀링
         for(int i = 0; i< DonglePool.Count; i++)
         {
-            PoolCursor = (PoolCursor + 1) % DonglePool.Count;
-            if (!DonglePool[PoolCursor].gameObject.activeSelf)
+            PoolCount = (PoolCount + 1) % DonglePool.Count;
+
+            if (!DonglePool[PoolCount].gameObject.activeSelf)
             {
-                return DonglePool[PoolCursor];
+                return DonglePool[PoolCount];
             }
         }
 
@@ -157,7 +163,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < DongleArray.Length; i++)
         {
-            DongleArray[i].Hide(Vector3.up * 100);
+            DongleArray[i].Hide(Vector3.up * 100, true);
             yield return new WaitForSeconds(0.1f);
         }
 

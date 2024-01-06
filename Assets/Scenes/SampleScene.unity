@@ -1007,8 +1007,8 @@ MonoBehaviour:
   MaxLevel: 1
   Score: 0
   IsGameOver: 0
-  PoolSize: 10
-  PoolCursor: 0
+  PoolSize: 3
+  PoolCount: 0
   DonglePool: []
   EffectPool: []
   DonglePrefab: {fileID: 8474558173409911867, guid: 6aca233ed9496ec4ba95160bdaf85aad, type: 3}

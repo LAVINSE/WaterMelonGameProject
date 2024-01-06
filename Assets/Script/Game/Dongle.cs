@@ -135,7 +135,7 @@ public class Dongle : MonoBehaviour
                 if(Y < OtherY || (Y == OtherY && X > OtherX))
                 {
                     Debug.Log("합쳐");
-                    OtherDongle.Hide(this.transform.position);
+                    OtherDongle.Hide(this.transform.position, false);
                     LevelUp();
                 }
             }
@@ -163,19 +163,19 @@ public class Dongle : MonoBehaviour
     }
 
     /** 동글을 숨긴다 */
-    public void Hide(Vector3 TargetPos)
+    public void Hide(Vector3 TargetPos, bool IsOver)
     {
         IsMerge = true;
 
         Rigid.simulated = false;
         Circle.enabled = false;
 
-        if(TargetPos == Vector3.up * 100)
+        if(IsOver == true)
         {
             EffectPlay();
         }
 
-        StartCoroutine(HideDongle(TargetPos));
+        StartCoroutine(HideDongle(TargetPos, IsOver));
     }
 
     /** 동글 드래그 */
@@ -194,18 +194,18 @@ public class Dongle : MonoBehaviour
 
     #region 코루틴
     /** 동글을 숨긴다 */
-    private IEnumerator HideDongle(Vector3 TargetPos)
+    private IEnumerator HideDongle(Vector3 TargetPos, bool IsOver)
     {
         int FrameCount = 0;
 
         while(FrameCount < 20)
         {
             FrameCount++;
-            if(TargetPos != Vector3.up * 100)
+            if(IsOver == false)
             {
                 this.transform.position = Vector3.Lerp(this.transform.position, TargetPos, 0.5f);
             }
-            else if(TargetPos == Vector3.up * 100)
+            else if(IsOver == true)
             {
                 this.transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, 0.2f);
             }
