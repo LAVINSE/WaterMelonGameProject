@@ -134,7 +134,6 @@ public class Dongle : MonoBehaviour
                 // 내가 아래있을 경우, 동일한 높이일 경우, 내가 오른쪽에 있을 경우
                 if(Y < OtherY || (Y == OtherY && X > OtherX))
                 {
-                    Debug.Log("합쳐");
                     OtherDongle.Hide(this.transform.position, false);
                     LevelUp();
                 }
